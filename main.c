@@ -124,6 +124,7 @@ void setupScreen()
         }
 
         // box top
+
         if(line == WindowProperties.inputStartLine-3)
         {
             int i;
@@ -211,6 +212,9 @@ char input(){
     char special[]={'\n','+','-','*','x','/','^','%'};
 
     char c = uart_getc();
+    //char test[2] = " ";
+    //sprintf(test,"%c",c);
+    if(c == '\b') return c;
     if (valueInArray(c,nums,10)==1 || valueInArray(c,special,8)==1){
         uart_send(c);
         return c;
@@ -484,12 +488,26 @@ void main()
 
 
 
+
+
     while(1) {
+
+
         if (c == '\n') {
             printf("\n");
             result=printExpr(terms,operator,opX+1,100, expr);
             printf("\n");
             break;
+        }
+        else if(c=='\b'){
+            uart_send(c);
+            cursorChar--;
+            if (cursorChar<0){
+                cursorChar=WindowProperties.maxInputLineLen-1;
+                cursorLine--;
+            }
+
+            pushChar(' ',cursorChar,cursorLine,0);
         }
         else{
 
