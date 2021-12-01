@@ -80,6 +80,8 @@ void uart_init()
     *UART0_CR = 0x301;     // enable Tx, Rx, UART
 }
 
+
+
 /**
  * Send a character
  */
@@ -120,5 +122,29 @@ void printf(char *fmt, ...) {
         if(*s=='\n')
             uart_send('\r');
         uart_send(*s++);
+    }
+}
+
+/**
+ * Display a string
+ */
+void uart_puts(char *s) {
+    while(*s) {
+        /* convert newline to carrige return + newline */
+        if(*s=='\n')
+            uart_send('\r');
+        uart_send(*s++);
+    }
+}
+
+void uart_hex(unsigned int d) {
+    unsigned int n;
+    int c;
+    for(c=28;c>=0;c-=4) {
+        // get highest tetrad
+        n=(d>>c)&0xF;
+        // 0-9 => '0'-'9', 10-15 => 'A'-'F'
+        n+=n>9?0x37:0x30;
+        uart_send(n);
     }
 }

@@ -25,11 +25,10 @@
 
 TOOLCHAIN = /home/parallels/homeBaked/gcc-arm-x86_64-aarch64-none-elf/bin/aarch64-none-elf
 CC = $(TOOLCHAIN)-gcc
-OBJCOPY = $(TOOLCHAIN)-objcopy
 
 SRCS = $(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib
+CFLAGS = -Wall -O2 -ffreestanding -fno-stack-protector -nostdinc -nostdlib
 
 all: clean kernel8.img
 
@@ -39,14 +38,8 @@ start.o: start.S
 %.o: %.c
 	$(TOOLCHAIN)-gcc $(CFLAGS) -c $< -o $@
 
-font_psf.o: font.psf
-	$(TOOLCHAIN)-ld -r -b binary -o font_psf.o font.psf
-
-font_sfn.o: font.sfn
-	$(TOOLCHAIN)-ld -r -b binary -o font_sfn.o font.sfn
-
-kernel8.img: start.o font_psf.o font_sfn.o $(OBJS)
-	$(TOOLCHAIN)-ld -nostdlib start.o font_psf.o font_sfn.o $(OBJS) -T link.ld -o kernel8.elf
+kernel8.img: start.o $(OBJS)
+	$(TOOLCHAIN)-ld -nostdlib start.o $(OBJS) -T link.ld -o kernel8.elf
 	$(TOOLCHAIN)-objcopy -O binary kernel8.elf kernel8.img
 
 clean:

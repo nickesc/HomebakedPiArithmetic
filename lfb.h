@@ -23,9 +23,6 @@
  *
  */
 
-void uart_init();
-void uart_send(unsigned int c);
-char uart_getc();
-void uart_puts(char *s);
-void uart_hex(unsigned int d);
-void printf(char *fmt, ...);
+void lfb_init();
+void lfb_print(int x, int y, char *s);
+void lfb_proprint(int x, int y, char *s);
