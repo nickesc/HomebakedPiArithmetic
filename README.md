@@ -13,5 +13,5 @@ The GUI is changeable by editing a few of the values at the top of setupScreen()
 > ## Wide Sizing
 > ![wide](/img/wide.jpg)
 
-> ##Big Sizing
+> ## Big Sizing
 > ![big](/img/big.jpg)
