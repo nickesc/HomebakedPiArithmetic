@@ -8,7 +8,7 @@ The calculator takes input on the left side of the screen and show the output on
 > ## Demo
 > https://user-images.githubusercontent.com/12503203/144731501-1463c962-3b72-480b-b5b6-22b9652b47d9.mp4
 
-Most of the project's code can be found in the `main.c` file, which sets up the GUI and handles the input loop. The GUI shape and size can be set in the `setupScreen()` function, examples of which can be seen in the images below:
+Most of the project's code can be found in the `main.c` file, which sets up the GUI and handles the input loop and calculations. The GUI shape and size can be set in the `setupScreen()` function, examples of which can be seen in the images below:
 
 > ### Default Sizing
 > ![default](/img/default.jpg)
